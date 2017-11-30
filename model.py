@@ -4,7 +4,6 @@ import csv
 import os
 
 from clize import run
-import cv2
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, Cropping2D, Conv2D
 import numpy as np
@@ -19,7 +18,7 @@ GENERATOR_BATCH_SIZE = 32
 OUTSIDE_CAMERA_OFFSET = 0.2
 
 def augment_default_center(entry):
-    """ This augmentation returns the unmodified center image and the 
+    """ This augmentation returns the unmodified center image and the
         steering angle for that image """
 
     return entry.center_img(), entry.steering_angle
@@ -31,9 +30,14 @@ def augment_flip_image(entry):
     return np.fliplr(entry.center_img()), -entry.steering_angle
 
 def augment_steering_left(entry):
+    """ This function returns the left image, and a (hacky) adjustment to the
+        steering angle to account for the different perspective from the left """
+
     return entry.left_img(), entry.steering_angle + OUTSIDE_CAMERA_OFFSET
 
 def augment_steering_right(entry):
+    """ This function returns the right image, and a (hacky) adjustment to the
+        steering angle to account for the different perspective from the right """
     return entry.right_img(), entry.steering_angle - OUTSIDE_CAMERA_OFFSET
 
 AUGMENTS = [
