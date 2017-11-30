@@ -13,6 +13,8 @@ from sklearn.utils import shuffle
 import driving_entry as de
 
 DEFAULT_PATH = "../data_capture"
+DEFAULT_MODEL_PATH = "model.h5"
+
 GENERATOR_BATCH_SIZE = 32
 
 OUTSIDE_CAMERA_OFFSET = 0.2
@@ -49,18 +51,21 @@ AUGMENTS = [
 
 NUM_AUGMENTS = len(AUGMENTS)
 
-def build_model(path=None):
+def build_model(path=None, output=None):
     """
     :param path: Path to data dir, defaults to DEFAULT_PATH
-    """ 
+    """
     if not path:
         path = DEFAULT_PATH
+
+    if not output:
+        output = DEFAULT_MODEL_PATH
 
     entries = load_data(path)
     training, validate = train_test_split(entries, test_size=0.2)
 
     model = Sequential()
-    
+
     # normalization layers
     model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160, 320, 3)))
     model.add(Cropping2D(cropping=((70, 25), (0, 0))))
@@ -85,7 +90,7 @@ def build_model(path=None):
         validation_data=data_generator(validate, GENERATOR_BATCH_SIZE),
         epochs=3)
 
-    model.save('model.h5')
+    model.save(output)
 
 def data_generator(samples, entries_per_batch=32):
     """ Generate a data set for a given number of entries. Data is generated

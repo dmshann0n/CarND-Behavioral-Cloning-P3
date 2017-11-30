@@ -104,14 +104,14 @@ I then recorded the vehicle recovering from the left side and right sides of the
 
 Then I repeated this process on track two in order to get more data points.
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
 ![alt text][image6]
 ![alt text][image7]
 
 Etc ....
 
-After the collection process, I had 7,570 number of data points. I then preprocessed this data by cropping the image and normalizing pixels to ranges of 0 through 1.
+After the collection process, I had 7,570 samples. I augmented this data with a reversed version, and the left and right camera perspectives for a total of 30,280. 
+
+The Keras model normalizes this data by cropping the image and normalizing pixels to ranges of 0 through 1.
 
 The generator that returns data to the Keras model first shuffles the data before generating permutations for each augmentation. The augmentations are evenly represented in the generated data.
 
