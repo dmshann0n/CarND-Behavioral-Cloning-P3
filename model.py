@@ -88,6 +88,9 @@ def build_model(path=None):
     model.save('model.h5')
 
 def data_generator(samples, entries_per_batch=32):
+    """ Generate a data set for a given number of entries. Data is generated
+        for each entry and permutation, so this generator will return 
+        (entires * permutations) """
     num_samples = len(samples)
 
     # Loop forever. Keras handles termination of the generator
@@ -99,14 +102,14 @@ def data_generator(samples, entries_per_batch=32):
             angles = []
 
             batch = shuffled[offset:offset + entries_per_batch]
-            
+
             for perm in AUGMENTS:
                 for sample in batch:
                     img, angle = perm(sample)
-                    
+
                     images.append(img)
                     angles.append(angle)
-            
+
             yield shuffle(np.array(images), np.array(angles))
 
 
