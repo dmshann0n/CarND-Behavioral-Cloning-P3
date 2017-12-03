@@ -97,7 +97,9 @@ To capture good driving behavior, I first recorded two laps on track one using c
 I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover from the edges. The following images show a recovery starting from the right side (near the striped barrier) and correcting bcack to the center.
 
 ![alt text][image3]
+
 ![alt text][image4]
+
 ![alt text][image5]
 
 After the collection process, I had 7,570 samples. I augmented this data with a horizontally flipped version, and the left and right camera perspectives for a total of 30,280. 
