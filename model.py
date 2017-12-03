@@ -51,15 +51,15 @@ AUGMENTS = [
 
 NUM_AUGMENTS = len(AUGMENTS)
 
-def build_model(path=None, output=None):
+def build_model(path=None, output_path=None):
     """
     :param path: Path to data dir, defaults to DEFAULT_PATH
     """
     if not path:
         path = DEFAULT_PATH
 
-    if not output:
-        output = DEFAULT_MODEL_PATH
+    if not output_path:
+        output_path = DEFAULT_MODEL_PATH
 
     entries = load_data(path)
     training, validate = train_test_split(entries, test_size=0.2)
@@ -90,7 +90,7 @@ def build_model(path=None, output=None):
         validation_data=data_generator(validate, GENERATOR_BATCH_SIZE),
         epochs=3)
 
-    model.save(output)
+    model.save(output_path)
 
 def data_generator(samples, entries_per_batch=32):
     """ Generate a data set for a given number of entries. Data is generated
