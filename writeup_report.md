@@ -54,15 +54,15 @@ I encapsulated the CSV file in the DrivingEntry class (driving_entry.py) to make
 
 #### 1. An appropriate model architecture has been employed
 
-The data is normalized in the model using a Keras lambda layer (code line 65-66). I followed the network from the Nvidia autonomous vehicle architecture.
+The data is normalized in the model using a Keras lambda layer (code lines 65-66). I followed the network from the Nvidia autonomous vehicle architecture.
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model was trained and validated on different data sets to ensure that the model was not overfittin (lines 20-24). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an Adam optimizer, so the learning rate was not tuned manually.
 
 #### 4. Appropriate training data
 
@@ -94,20 +94,13 @@ To capture good driving behavior, I first recorded two laps on track one using c
 
 ![alt text][image2]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to recover from the edges. The following images show a recovery starting from the right side (near the striped barrier) and correcting bcack to the center.
 
 ![alt text][image3]
 ![alt text][image4]
 ![alt text][image5]
 
-Then I repeated this process on track two in order to get more data points.
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had 7,570 samples. I augmented this data with a reversed version, and the left and right camera perspectives for a total of 30,280. 
+After the collection process, I had 7,570 samples. I augmented this data with a horizontally flipped version, and the left and right camera perspectives for a total of 30,280. 
 
 The Keras model normalizes this data by cropping the image and normalizing pixels to ranges of 0 through 1.
 
